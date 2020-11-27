@@ -13,4 +13,5 @@ public interface Imports_ExportsRepository extends JpaRepository<Imports_exports
 
 	//@Query("Select * from imports_exports inner join reports on imports_exports.reports_id=reports.id WHERE reports.type = :type and imports_exports.product_id = :product_id")
 	//public List<Imports_exports> findApothema(@Param("type")String type,@Param("product_id")int product_id);
+	List<Imports_exports> findByProduct_id(int product_id);
 }

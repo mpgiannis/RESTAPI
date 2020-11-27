@@ -85,7 +85,24 @@ public class Imports_ExportsRestController {
 		
 	}*/
 	
-	
+	@GetMapping("/apothema/{productid}")
+	public int findApothema(@PathVariable int productid) {
+		List<Imports_exports> a =imports_exportsService.findbyProduct_id(productid);
+		if (a == null) {
+			throw new RuntimeException("Imports_Exports productid not found - " + productid);
+		}
+		int apothema=0;
+		for (Imports_exports temp : a) {
+            if(temp.getReport().getType().equals("import")) {
+            	apothema=apothema+temp.getAmount();
+            }
+            else {
+            	apothema=apothema-temp.getAmount();
+            }
+        }
+		
+		return apothema;
+	}
 	
 	
 	

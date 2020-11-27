@@ -58,14 +58,11 @@ public class ReportsServiceImpl implements ReportsService {
 		reportsRepository.deleteById(theId);
 		
 	}
-
+/*
 	@Override
 	public List<Reports> findbyDate_rep(Date date_rep) {
 		
-		
 		   List<Reports> result = reportsRepository.findByDate_rep(date_rep);
-			
-	
 			
 			if (result!=null) {
 				return result;
@@ -75,9 +72,7 @@ public class ReportsServiceImpl implements ReportsService {
 				
 				throw new RuntimeException("Did not find Date_rep - " + date_rep);
 			}
-			
 
-	
 	}
-
+    */
 }

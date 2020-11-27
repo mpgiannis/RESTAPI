@@ -76,7 +76,7 @@ public class ReportsRestController {
 		}
 		
 		
-		
+		/*
 		@GetMapping("/reportsdate/{date_rep}")
 		public List<Reports> findDate_rep(@PathVariable Date date_rep) {
 			
@@ -90,7 +90,7 @@ public class ReportsRestController {
 			return tempReports;
 		
 		}
-	
+	*/
 	
 	
 	

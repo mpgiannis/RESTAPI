@@ -51,6 +51,19 @@ private Imports_ExportsRepository imports_exportsRepository;
 		imports_exportsRepository.deleteById(theId);
 	}
 
+	@Override
+	public List<Imports_exports> findbyProduct_id(int product_id) {
+		List<Imports_exports> result = imports_exportsRepository.findByProduct_id(product_id);
+		if (result!=null) {
+			return result;
+				
+		}
+		else {
+			
+			throw new RuntimeException("Did not find Date_rep - " + product_id);
+		}
+	}
+
 	/*@Override
 	public List<Imports_exports> findapothema(String type, int productid) {
 		List<Imports_exports> result = imports_exportsRepository.findApothema(type, productid);

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="racks")
 public class Racks {
@@ -28,16 +30,17 @@ public class Racks {
 		
 		@Column(name="description")
 		private String description;
-		
-		@ManyToOne
-		@JoinColumn(name="stores_id")
+	
+		@Column(name="stores_id")
 		private int stores_id;
 		
 		@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 		@JoinColumn(name="rack_id")
 		private List<Imports_exports> imports_exports;
 
-		
+		@ManyToOne
+		@JoinColumn(name="stores_id", insertable = false, updatable = false)
+		private Stores store;
 		
 		public Racks() {}
 
@@ -80,7 +83,7 @@ public class Racks {
 
 
 
-
+		
 		public List<Imports_exports> getImports_exports() {
 			return imports_exports;
 		}
@@ -88,6 +91,16 @@ public class Racks {
 
 		public void setImports_exports(List<Imports_exports> imports_exports) {
 			this.imports_exports = imports_exports;
+		}
+
+		@JsonIgnore
+		public Stores getStore() {
+			return store;
+		}
+
+
+		public void setStore(Stores store) {
+			this.store = store;
 		}
 
 

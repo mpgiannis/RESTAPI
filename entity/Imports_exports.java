@@ -1,14 +1,17 @@
 package springboot.askisi3.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="imports_exports")
@@ -22,22 +25,32 @@ public class Imports_exports {
 		@Column(name="id")
 		private int id;
 		
-		@ManyToOne
-		@JoinColumn(name="reports_id")
+		@Column(name="reports_id")
 		private int reports_id;
 		
-		@ManyToOne
-		@JoinColumn(name="product_id")
+		@Column(name="product_id")
 		private int product_id;
 		
-		@ManyToOne
-		@JoinColumn(name="rack_id")
+		@Column(name="rack_id")
 		private int rack_id;
 		
 		@Column(name="amount")
 		private int amount;
 	
+		@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="rack_id", insertable = false, updatable = false)
+		private Racks rack;
 		
+		@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="product_id", insertable = false, updatable = false)
+		private Product product;
+		
+		@ManyToOne(fetch=FetchType.LAZY)
+		@JoinColumn(name="reports_id", insertable = false, updatable = false)
+		private Reports report;
+		
+
+
 	public Imports_exports() {}
 
 
@@ -97,6 +110,38 @@ public class Imports_exports {
 
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+
+	
+	
+	@JsonIgnore
+    public Racks getRack() {
+		return rack;
+	}
+
+
+	public void setRack(Racks rack) {
+		this.rack = rack;
+	}
+
+	@JsonIgnore
+	public Product getProduct() {
+		return product;
+	}
+
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@JsonIgnore
+	public Reports getReport() {
+		return report;
+	}
+
+
+	public void setReport(Reports report) {
+		this.report = report;
 	}
 
 

@@ -18,6 +18,6 @@ public List<Imports_exports> findAll();
 	
 	//public List<Imports_exports> findapothema(String type,int productid);
 	
-	
+	public List<Imports_exports> findbyProduct_id(int productid);
 	
 }
