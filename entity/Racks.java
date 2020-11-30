@@ -26,21 +26,22 @@ public class Racks {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		@Column(name="id")
-		private int id;
+		private Integer id;
 		
 		@Column(name="description")
 		private String description;
 	
-		@Column(name="stores_id")
-		private int stores_id;
+		@Column(name="stores_id", insertable = false, updatable = false)
+		private int storesId;
 		
-		@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-		@JoinColumn(name="rack_id")
-		private List<Imports_exports> imports_exports;
+		@OneToMany(mappedBy = "rack",orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		private List<ImportsExports> importsExports;
 
-		@ManyToOne
-		@JoinColumn(name="stores_id", insertable = false, updatable = false)
+		
+		@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		@JoinColumn(name = "stores_id" )
 		private Stores store;
+		
 		
 		public Racks() {}
 
@@ -48,7 +49,7 @@ public class Racks {
 		public Racks(String description, int stores_id) {
 			
 			this.description = description;
-			this.stores_id = stores_id;
+			this.storesId = stores_id;
 		}
 
 
@@ -72,25 +73,25 @@ public class Racks {
 		}
 
 
-		public int getStores_id() {
-			return stores_id;
+		public int getStoresId() {
+			return storesId;
 		}
 
 
-		public void setStores_id(int stores_id) {
-			this.stores_id = stores_id;
+		public void setStoresId(int storesid) {
+			this.storesId = storesid;
 		}
 
 
 
 		
-		public List<Imports_exports> getImports_exports() {
-			return imports_exports;
+		public List<ImportsExports> getImports_exports() {
+			return importsExports;
 		}
 
 
-		public void setImports_exports(List<Imports_exports> imports_exports) {
-			this.imports_exports = imports_exports;
+		public void setImports_exports(List<ImportsExports> importsExports) {
+			this.importsExports = importsExports;
 		}
 
 		@JsonIgnore
@@ -106,7 +107,7 @@ public class Racks {
 
 		@Override
 		public String toString() {
-			return "Racks [id=" + id + ", description=" + description + ", stores_id=" + stores_id + "]";
+			return "Racks [id=" + id + ", description=" + description + ", stores_id=" + storesId + "]";
 		}
 		
 		

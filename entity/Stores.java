@@ -1,5 +1,6 @@
 package springboot.askisi3.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,18 +21,16 @@ public class Stores {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	
 	@Column(name="description")
 	private String description;
 	
 	
+	
+	@OneToMany(mappedBy = "store",orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<Racks> racks = new ArrayList<>();
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="stores_id")
-	private List<Racks> racks;
-	
-	
 	public Stores() {}
 
 

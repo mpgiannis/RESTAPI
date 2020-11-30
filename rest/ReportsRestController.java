@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import springboot.askisi3.entity.Reports;
@@ -76,21 +77,21 @@ public class ReportsRestController {
 		}
 		
 		
-		/*
+		
 		@GetMapping("/reportsdate/{date_rep}")
-		public List<Reports> findDate_rep(@PathVariable Date date_rep) {
+		public List<Reports> findDateRep(@RequestParam Date dateRep) {
 			
-			List<Reports> tempReports = reportsService.findbyDate_rep(date_rep);
+			List<Reports> tempReports = reportsService.findbyDateRep(dateRep);
 			
 			if (tempReports == null) {
-				throw new RuntimeException("Reports not found - " + date_rep);
+				throw new RuntimeException("Reports not found - " + dateRep);
 			}
 		
 		
 			return tempReports;
 		
 		}
-	*/
+	
 	
 	
 	

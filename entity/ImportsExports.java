@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="imports_exports")
-public class Imports_exports {
+public class ImportsExports {
 	
 	
 	// define fields
@@ -23,42 +23,42 @@ public class Imports_exports {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		@Column(name="id")
-		private int id;
+		private Integer id;
 		
-		@Column(name="reports_id")
-		private int reports_id;
+		@Column(name="reports_id", insertable = false, updatable = false)
+		private int reportsId;
 		
-		@Column(name="product_id")
-		private int product_id;
+		@Column(name="product_id", insertable = false, updatable = false)
+		private int productId;
 		
-		@Column(name="rack_id")
-		private int rack_id;
+		@Column(name="rack_id", insertable = false, updatable = false)
+		private int rackId;
 		
 		@Column(name="amount")
 		private int amount;
 	
-		@ManyToOne(fetch=FetchType.LAZY)
-		@JoinColumn(name="rack_id", insertable = false, updatable = false)
+		@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		@JoinColumn(name = "rack_id" )
 		private Racks rack;
 		
-		@ManyToOne(fetch=FetchType.LAZY)
-		@JoinColumn(name="product_id", insertable = false, updatable = false)
+		@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		@JoinColumn(name="product_id")
 		private Product product;
 		
-		@ManyToOne(fetch=FetchType.LAZY)
-		@JoinColumn(name="reports_id", insertable = false, updatable = false)
+		@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		@JoinColumn(name="reports_id")
 		private Reports report;
 		
 
 
-	public Imports_exports() {}
+	public ImportsExports() {}
 
 
-	public Imports_exports(int reports_id, int product_id, int rack_id, int amount) {
+	public ImportsExports(int reports_id, int product_id, int rack_id, int amount) {
 	
-		this.reports_id = reports_id;
-		this.product_id = product_id;
-		this.rack_id = rack_id;
+		this.reportsId = reports_id;
+		this.productId = product_id;
+		this.rackId = rack_id;
 		this.amount = amount;
 	}
 
@@ -74,32 +74,32 @@ public class Imports_exports {
 
 
 	public int getReports_id() {
-		return reports_id;
+		return reportsId;
 	}
 
 
 	public void setReports_id(int reports_id) {
-		this.reports_id = reports_id;
+		this.reportsId = reports_id;
 	}
 
 
 	public int getProduct_id() {
-		return product_id;
+		return productId;
 	}
 
 
 	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+		this.productId = product_id;
 	}
 
 
 	public int getRack_id() {
-		return rack_id;
+		return rackId;
 	}
 
 
 	public void setRack_id(int rack_id) {
-		this.rack_id = rack_id;
+		this.rackId = rack_id;
 	}
 
 
@@ -147,8 +147,8 @@ public class Imports_exports {
 
 	@Override
 	public String toString() {
-		return "Imports_Exports [id=" + id + ", reports_id=" + reports_id + ", product_id=" + product_id + ", rack_id="
-				+ rack_id + ", amount=" + amount + "]";
+		return "Imports_Exports [id=" + id + ", reports_id=" + reportsId + ", product_id=" + productId + ", rack_id="
+				+ rackId + ", amount=" + amount + "]";
 	}
 	
 	

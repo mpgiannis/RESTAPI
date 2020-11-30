@@ -14,7 +14,7 @@ public interface ReportsService {
 	
 	public void deleteById(int theId);
 	
-	//public List<Reports> findbyDate_rep(Date date_rep);
+	public List<Reports> findbyDateRep(Date dateRep);
 	
 
 	

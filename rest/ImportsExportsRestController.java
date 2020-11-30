@@ -1,5 +1,6 @@
 package springboot.askisi3.rest;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,34 +11,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import springboot.askisi3.entity.Imports_exports;
-import springboot.askisi3.service.Imports_ExportsService;
+import springboot.askisi3.entity.ImportsExports;
+import springboot.askisi3.service.ImportsExportsService;
 
 @RestController
-@RequestMapping("/api")
-public class Imports_ExportsRestController {
+@RequestMapping("/imports_exports")
+public class ImportsExportsRestController {
 	
 	
-	private Imports_ExportsService imports_exportsService;
+	private ImportsExportsService importsExportsService;
 	
 	
 	@Autowired
-	public Imports_ExportsRestController(Imports_ExportsService theImports_ExportsService) {
-		imports_exportsService = theImports_ExportsService;
+	public ImportsExportsRestController(ImportsExportsService theImports_ExportsService) {
+		importsExportsService = theImports_ExportsService;
 	}
 	
 	@GetMapping("/imports_exports")
-	public List<Imports_exports> findAll() {
-		return imports_exportsService.findAll();
+	public List<ImportsExports> findAll() {
+		return importsExportsService.findAll();
 	}
 
 	
 	@GetMapping("/imports_exports/{imports_exportsId}")
-	public Imports_exports getImports_Exports(@PathVariable int imports_exportsId) {
+	public ImportsExports getImports_Exports(@PathVariable int imports_exportsId) {
 		
-		Imports_exports theImports_Exports = imports_exportsService.findById(imports_exportsId);
+		ImportsExports theImports_Exports = importsExportsService.findById(imports_exportsId);
 		
 		if (theImports_Exports == null) {
 			throw new RuntimeException("Imports_Exports id not found - " + imports_exportsId);
@@ -48,34 +50,34 @@ public class Imports_ExportsRestController {
 
 	
 	@PostMapping("/imports_exports")
-	public Imports_exports addImports_Exports(@RequestBody Imports_exports theImports_Exports) {
+	public ImportsExports addImports_Exports(@RequestBody ImportsExports theImports_Exports) {
 		theImports_Exports.setId(0);
-		imports_exportsService.save(theImports_Exports);
+		importsExportsService.save(theImports_Exports);
 		return theImports_Exports;
 	}
 	
 	@PutMapping("/imports_exports")
-	public Imports_exports updateImports_Exports(@RequestBody Imports_exports theImports_Exports) {
-		imports_exportsService.save(theImports_Exports);
+	public ImportsExports updateImports_Exports(@RequestBody ImportsExports theImports_Exports) {
+		importsExportsService.save(theImports_Exports);
 		return theImports_Exports;
 	}
 	
 	@DeleteMapping("/imports_exports/{imports_exportsId}")
 	public String deleteImports_Exports(@PathVariable int imports_exportsId) {	
-		Imports_exports tempImports_Exports = imports_exportsService.findById(imports_exportsId);
+		ImportsExports tempImports_Exports = importsExportsService.findById(imports_exportsId);
 		if (tempImports_Exports == null) {
 			throw new RuntimeException("Imports_Exports id not found - " + imports_exportsId);
 		}
 		
-		imports_exportsService.deleteById(imports_exportsId);
+		importsExportsService.deleteById(imports_exportsId);
 		
 		return "Deleted imports_exports id - " + imports_exportsId;
 	}
 	
 	
-	/*@GetMapping("/apothema/{type}/{productid}")
-	public List<Imports_exports> apothema(@PathVariable String type, @PathVariable int productid){
-		List<Imports_exports> a = imports_exportsService.findapothema(type,productid);
+	@GetMapping("/apothema/{date}/{productid}")
+	public List<ImportsExports> apothema(@RequestParam Date date, @RequestParam int productid){
+		List<ImportsExports> a = importsExportsService.findapothema(date,productid);
 				
 		if (a == null) {
 			throw new RuntimeException(" imports_exports not found - ");
@@ -83,16 +85,16 @@ public class Imports_ExportsRestController {
 	
 		return a;
 		
-	}*/
+	}
 	
 	@GetMapping("/apothema/{productid}")
 	public int findApothema(@PathVariable int productid) {
-		List<Imports_exports> a =imports_exportsService.findbyProduct_id(productid);
+		List<ImportsExports> a =importsExportsService.findbyProduct_id(productid);
 		if (a == null) {
 			throw new RuntimeException("Imports_Exports productid not found - " + productid);
 		}
 		int apothema=0;
-		for (Imports_exports temp : a) {
+		for (ImportsExports temp : a) {
             if(temp.getReport().getType().equals("import")) {
             	apothema=apothema+temp.getAmount();
             }

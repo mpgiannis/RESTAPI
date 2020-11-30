@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import springboot.askisi3.entity.Reports;
 
 public interface ReportsRepository  extends JpaRepository<Reports, Integer>{
-	//List<Reports> findByDate_rep(Date date_rep);
+	List<Reports> findByDateRep(Date dateRep);
 
 }

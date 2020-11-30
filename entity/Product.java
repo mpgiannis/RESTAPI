@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,7 +21,7 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	
 	@Column(name="name")
 	private String name;
@@ -34,11 +33,10 @@ public class Product {
 	private int barcode;
 	
 	@Column(name="measure_unit")
-	private String measure_unit;
+	private String measureUnit;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="product_id")
-	private List<Imports_exports> imports_exports;
+	@OneToMany(mappedBy = "product",orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<ImportsExports> importsExports;
 	
 		
 	// define constructors
@@ -54,7 +52,7 @@ public class Product {
 		this.name = name;
 		this.description = description;
 		this.barcode = barcode;
-		this.measure_unit = measure_unit;
+		this.measureUnit = measure_unit;
 	}
 
 
@@ -108,26 +106,26 @@ public class Product {
 
 
 	public String getMeasure_unit() {
-		return measure_unit;
+		return measureUnit;
 	}
 
 
 
 	public void setMeasure_unit(String measure_unit) {
-		this.measure_unit = measure_unit;
+		this.measureUnit = measure_unit;
 	}
 
 
 	
 
-	public List<Imports_exports> getImports_exports() {
-		return imports_exports;
+	public List<ImportsExports> getImports_exports() {
+		return importsExports;
 	}
 
 
 
-	public void setImports_exports(List<Imports_exports> imports_exports) {
-		this.imports_exports = imports_exports;
+	public void setImports_exports(List<ImportsExports> importsExports) {
+		this.importsExports = importsExports;
 	}
 
 
@@ -135,7 +133,7 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", description=" + description + ", barcode=" + barcode
-				+ ", measure_unit=" + measure_unit + "]";
+				+ ", measure_unit=" + measureUnit + "]";
 	}
 
 

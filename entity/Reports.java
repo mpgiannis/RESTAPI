@@ -10,9 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="reports")
@@ -24,45 +25,44 @@ public class Reports {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 	
 	@Column(name="date_rep")
-	private Date date_rep;
+	private Date dateRep;
 	
 	@Column(name="type")
 	private String type;
 	
 	@Column(name="description_reason")
-	private String description_reason;
+	private String descriptionReason;
 	
 	@Column(name="received_delivered_by")
-	private String received_delivered_by;
+	private String receivedDeliveredBy;
 	
 	@Column(name="infos")
 	private String infos;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="reports_id")
-	private List<Imports_exports> imports_exports;
+	@OneToMany(mappedBy = "report",orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	private List<ImportsExports> importsExports;
 	
 	public Reports() {}
 
 	public Reports(Date date_rep,String type, String description_reason, String received_delivered_by, String infos) {
 		
-		this.date_rep =  date_rep;
+		this.dateRep =  date_rep;
 		this.type = type;
-		this.description_reason = description_reason;
-		this.received_delivered_by = received_delivered_by;
+		this.descriptionReason = description_reason;
+		this.receivedDeliveredBy = received_delivered_by;
 		this.infos = infos;
 	
 	}
 
-	public Date getDate_rep() {
-		return date_rep;
+	public Date getDateRep() {
+		return dateRep;
 	}
 
-	public void setDate_rep(Date date_rep) {
-		this.date_rep = date_rep;
+	public void setDateRep(Date dateRep) {
+		this.dateRep = dateRep;
 	}
 
 	public int getId() {
@@ -83,19 +83,19 @@ public class Reports {
 	}
 
 	public String getDescription_reason() {
-		return description_reason;
+		return descriptionReason;
 	}
 
 	public void setDescription_reason(String description_reason) {
-		this.description_reason = description_reason;
+		this.descriptionReason = description_reason;
 	}
 
 	public String getReceived_delivered_by() {
-		return received_delivered_by;
+		return receivedDeliveredBy;
 	}
 
 	public void setReceived_delivered_by(String received_delivered_by) {
-		this.received_delivered_by = received_delivered_by;
+		this.receivedDeliveredBy = received_delivered_by;
 	}
 
 	public String getInfos() {
@@ -105,20 +105,20 @@ public class Reports {
 	public void setInfos(String infos) {
 		this.infos = infos;
 	}
-
-	public List<Imports_exports> getImports_exports() {
-		return imports_exports;
+	@JsonIgnore
+	public List<ImportsExports> getImports_exports() {
+		return importsExports;
 	}
 
-	public void setImports_exports(List<Imports_exports> imports_exports) {
-		this.imports_exports = imports_exports;
+	public void setImports_exports(List<ImportsExports> importsExports) {
+		this.importsExports = importsExports;
 	}
 
 	@Override
 	public String toString() {
-		return "Reports [id=" + id + ", date_rep=" + date_rep + ", type=" + type + ", description_reason="
-				+ description_reason + ", received_delivered_by=" + received_delivered_by + ", infos=" + infos
-				+ ", imports_exports=" + imports_exports + "]";
+		return "Reports [id=" + id + ", date_rep=" + dateRep + ", type=" + type + ", description_reason="
+				+ descriptionReason + ", received_delivered_by=" + receivedDeliveredBy + ", infos=" + infos
+				+ ", imports_exports=" + importsExports + "]";
 	}
 
 	
