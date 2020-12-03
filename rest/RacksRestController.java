@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import springboot.askisi3.dto.RacksDto;
 import springboot.askisi3.entity.Racks;
 import springboot.askisi3.service.RacksService;
+import springboot.askisi3.service.RacksServiceImpl;
 
 
 @RestController
@@ -23,20 +24,22 @@ public class RacksRestController {
 
 	
 	private RacksService racksService;
-	
+	private RacksServiceImpl racksServiceImpl;
 	@Autowired
-	public RacksRestController(RacksService theRacksService) {
+	public RacksRestController(RacksService theRacksService,RacksServiceImpl a) {
 		racksService = theRacksService;
+		racksServiceImpl=a;
 	}
 	
 	// expose "/racks" and return list of racks
 	@GetMapping("/racks")
-	public List<Racks> findAll() {
-		return racksService.findAll();
+	public List<RacksDto> findAll() {
+		List<Racks> list = racksService.findAll();
+		return  racksServiceImpl.RacksListToDtoList(list);
 	}
 	
 	@GetMapping("/racks/{racksId}")
-	public Racks getRacks(@PathVariable int racksId) {
+	public RacksDto getRacks(@PathVariable int racksId) {
 		
 		Racks theRacks = racksService.findById(racksId);
 		
@@ -44,32 +47,30 @@ public class RacksRestController {
 			throw new RuntimeException("Racks id not found - " + racksId);
 		}
 		
-		return theRacks;
+		return new RacksDto(theRacks);
 	}
 	
 	// add mapping for POST /racks - add new racks
 	
 		@PostMapping("/racks")
-		public Racks addRacks(@RequestBody Racks theRacks) {
+		public RacksDto addRacks(@RequestBody RacksDto theRackDto) {
 			
-			// also just in case they pass an id in JSON ... set id to 0
-			// this is to force a save of new item ... instead of update
+			theRackDto.setId(0);
 			
-			theRacks.setId(0);
+			racksService.save(theRackDto);
 			
-			racksService.save(theRacks);
-			
-			return theRacks;
+			return theRackDto;
 		}
 		
 		// add mapping for PUT /racks  - update existing racks
 		
 		@PutMapping("/racks")
-		public Racks updateRacks(@RequestBody Racks theRacks) {
+		public RacksDto updateRacks(@RequestBody RacksDto theRacksDto) {
 			
-			racksService.save(theRacks);
 			
-			return theRacks;
+			return racksService.update(theRacksDto);
+			
+		
 		}
 		
 		// add mapping for DELETE /racks/{racksId} - delete racks

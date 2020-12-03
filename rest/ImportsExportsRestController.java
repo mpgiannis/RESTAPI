@@ -1,6 +1,6 @@
 package springboot.askisi3.rest;
 
-import java.util.Date;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
+import springboot.askisi3.dto.ImportsExportsDto;
 import springboot.askisi3.entity.ImportsExports;
 import springboot.askisi3.service.ImportsExportsService;
+import springboot.askisi3.service.ImportsExportsServiceImpl;
 
 @RestController
 @RequestMapping("/imports_exports")
@@ -23,43 +25,45 @@ public class ImportsExportsRestController {
 	
 	
 	private ImportsExportsService importsExportsService;
-	
+	private ImportsExportsServiceImpl importsExportsServiceImpl;
 	
 	@Autowired
-	public ImportsExportsRestController(ImportsExportsService theImports_ExportsService) {
+	public ImportsExportsRestController(ImportsExportsService theImports_ExportsService,ImportsExportsServiceImpl a) {
 		importsExportsService = theImports_ExportsService;
+		importsExportsServiceImpl=a;
 	}
 	
-	@GetMapping("/imports_exports")
-	public List<ImportsExports> findAll() {
-		return importsExportsService.findAll();
+	@GetMapping("/api")
+	public List<ImportsExportsDto> findAll() {
+		List<ImportsExports> list = importsExportsService.findAll();
+		return importsExportsServiceImpl.ImportsExportsListToDtoList(list);
 	}
 
 	
 	@GetMapping("/imports_exports/{imports_exportsId}")
-	public ImportsExports getImports_Exports(@PathVariable int imports_exportsId) {
+	public ImportsExportsDto getImports_Exports(@PathVariable int imports_exportsId) {
 		
-		ImportsExports theImports_Exports = importsExportsService.findById(imports_exportsId);
+		ImportsExports theImportsExports = importsExportsService.findById(imports_exportsId);
 		
-		if (theImports_Exports == null) {
+		if (theImportsExports == null) {
 			throw new RuntimeException("Imports_Exports id not found - " + imports_exportsId);
 		}
 		
-		return theImports_Exports;
+		return new ImportsExportsDto(theImportsExports);
 	}
 
 	
 	@PostMapping("/imports_exports")
-	public ImportsExports addImports_Exports(@RequestBody ImportsExports theImports_Exports) {
-		theImports_Exports.setId(0);
-		importsExportsService.save(theImports_Exports);
-		return theImports_Exports;
+	public ImportsExportsDto addImports_Exports(@RequestBody ImportsExportsDto theImportsExportsDto) {
+		theImportsExportsDto.setId(0);
+		importsExportsService.save(theImportsExportsDto);
+		return theImportsExportsDto;
 	}
 	
 	@PutMapping("/imports_exports")
-	public ImportsExports updateImports_Exports(@RequestBody ImportsExports theImports_Exports) {
-		importsExportsService.save(theImports_Exports);
-		return theImports_Exports;
+	public ImportsExportsDto updateImports_Exports(@RequestBody ImportsExportsDto theImportsExportsDto) {
+		importsExportsService.save(theImportsExportsDto);
+		return theImportsExportsDto;
 	}
 	
 	@DeleteMapping("/imports_exports/{imports_exportsId}")
@@ -75,7 +79,7 @@ public class ImportsExportsRestController {
 	}
 	
 	
-	@GetMapping("/apothema/{date}/{productid}")
+	/*@GetMapping("/apothema/{date}/{productid}")
 	public List<ImportsExports> apothema(@RequestParam Date date, @RequestParam int productid){
 		List<ImportsExports> a = importsExportsService.findapothema(date,productid);
 				
@@ -85,7 +89,7 @@ public class ImportsExportsRestController {
 	
 		return a;
 		
-	}
+	}*/
 	
 	@GetMapping("/apothema/{productid}")
 	public int findApothema(@PathVariable int productid) {

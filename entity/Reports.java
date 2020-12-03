@@ -82,19 +82,19 @@ public class Reports {
 		this.type = type;
 	}
 
-	public String getDescription_reason() {
+	public String getDescriptionReason() {
 		return descriptionReason;
 	}
 
-	public void setDescription_reason(String description_reason) {
+	public void setDescriptionReason(String description_reason) {
 		this.descriptionReason = description_reason;
 	}
 
-	public String getReceived_delivered_by() {
+	public String getReceivedDeliveredBy() {
 		return receivedDeliveredBy;
 	}
 
-	public void setReceived_delivered_by(String received_delivered_by) {
+	public void setReceivedDeliveredBy(String received_delivered_by) {
 		this.receivedDeliveredBy = received_delivered_by;
 	}
 

@@ -14,53 +14,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import springboot.askisi3.dto.ReportsDto;
 import springboot.askisi3.entity.Reports;
 import springboot.askisi3.service.ReportsService;
+import springboot.askisi3.service.ReportsServiceImpl;
 
 @RestController
 @RequestMapping("/api")
 public class ReportsRestController {
 	private ReportsService reportsService;
-	
+	private ReportsServiceImpl reportsServiceImpl;
 	
 	@Autowired
-	public ReportsRestController(ReportsService theReportsService) {
+	public ReportsRestController(ReportsService theReportsService,ReportsServiceImpl a) {
 		reportsService = theReportsService;
+		reportsServiceImpl=a;
 	}
 	
 	@GetMapping("/reports")
-	public List<Reports> findAll() {
-		return reportsService.findAll();
+	public List<ReportsDto> findAll() {
+		return reportsServiceImpl.ReportsListToDtoList(reportsService.findAll());
 	}
 
 	
 	
 	@GetMapping("/reports/{reportsId}")
-	public Reports getReports(@PathVariable int reportsId) {		
+	public ReportsDto getReports(@PathVariable int reportsId) {		
 		Reports theReports = reportsService.findById(reportsId);
 		
 		if (theReports == null) {
 			throw new RuntimeException("Reports id not found - " + reportsId);
 		}
 		
-		return theReports;
+		return new ReportsDto(theReports);
 	}
 	
 
 	
 		@PostMapping("/reports")
-		public Reports addReports(@RequestBody Reports theReports) {
-			theReports.setId(0);
-			reportsService.save(theReports);			
-			return theReports;
+		public ReportsDto addReports(@RequestBody ReportsDto theReportsDto) {
+			theReportsDto.setId(0);
+			reportsService.save(theReportsDto);			
+			return theReportsDto;
 		}
 		
 	
 		
 		@PutMapping("/reports")
-		public Reports updateReports(@RequestBody Reports theReports) {
-			reportsService.save(theReports);
-			return theReports;
+		public ReportsDto updateReports(@RequestBody ReportsDto theReports) {
+			
+			return reportsService.update(theReports);
 		}
 
 		

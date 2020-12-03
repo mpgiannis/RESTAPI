@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name="racks")
@@ -31,28 +31,22 @@ public class Racks {
 		@Column(name="description")
 		private String description;
 	
-		@Column(name="stores_id", insertable = false, updatable = false)
-		private int storesId;
-		
-		@OneToMany(mappedBy = "rack",orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-		private List<ImportsExports> importsExports;
-
-		
 		@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 		@JoinColumn(name = "stores_id" )
 		private Stores store;
 		
+		@OneToMany(mappedBy = "rack",orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		private List<ImportsExports> importsExports;
 		
 		public Racks() {}
 
 
-		public Racks(String description, int stores_id) {
+		public Racks(String description) {
 			
 			this.description = description;
-			this.storesId = stores_id;
+			
 		}
-
-
+		
 		public int getId() {
 			return id;
 		}
@@ -73,16 +67,16 @@ public class Racks {
 		}
 
 
-		public int getStoresId() {
-			return storesId;
+
+		
+		public Stores getStore() {
+			return store;
 		}
 
 
-		public void setStoresId(int storesid) {
-			this.storesId = storesid;
+		public void setStore(Stores store) {
+			this.store = store;
 		}
-
-
 
 		
 		public List<ImportsExports> getImports_exports() {
@@ -94,22 +88,16 @@ public class Racks {
 			this.importsExports = importsExports;
 		}
 
-		@JsonIgnore
-		public Stores getStore() {
-			return store;
-		}
-
-
-		public void setStore(Stores store) {
-			this.store = store;
-		}
-
 
 		@Override
 		public String toString() {
-			return "Racks [id=" + id + ", description=" + description + ", stores_id=" + storesId + "]";
+			return "Racks [id=" + id + ", description=" + description + ", store=" + store + ", importsExports="
+					+ importsExports + "]";
 		}
-		
+
+
+
+	
 		
 		
 }

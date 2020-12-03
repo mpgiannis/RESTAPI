@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="stores")
 public class Stores {
@@ -66,7 +67,7 @@ public class Stores {
 	}
 
 
-
+	
 	public List<Racks> getRacks() {
 		return racks;
 	}
@@ -84,6 +85,17 @@ public class Stores {
 		return "Stores [id=" + id + ", description=" + description +  "]";
 	}
 	
+	
+	public void add(Racks tempRack) {
+		
+		if(racks==null) {
+			
+			racks= new ArrayList<>();
+			
+		}
+		racks.add(tempRack);
+		tempRack.setStore(this);
+	}
 	
 	
 }
