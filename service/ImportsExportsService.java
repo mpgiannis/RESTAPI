@@ -1,6 +1,7 @@
 package springboot.askisi3.service;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 import springboot.askisi3.dto.ImportsExportsDto;
@@ -12,14 +13,17 @@ public interface ImportsExportsService {
 	
 	public ImportsExports findById(int theId);
 	
-	public void save(ImportsExportsDto theImportsExportsDto);
+	public ImportsExportsDto save(ImportsExportsDto theImportsExportsDto);
 	
 	public void deleteById(int theId);
 
 	public ImportsExportsDto update(ImportsExportsDto newImportsExports);
 	
-	//public List<ImportsExports> findapothema(Date date,int productId);
-	
 	public List<ImportsExports> findbyProduct_id(int productid);
+	
+	public List<ImportsExportsDto> ImportsExportsListToDtoList(List<ImportsExports> entitylist);
+	
+	
+	public List<ImportsExports> findapothema(LocalDate date,int productId);
 	
 }

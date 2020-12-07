@@ -9,18 +9,8 @@ public class Askisi3Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Askisi3Application.class, args);
 
-		
-		
-		
-		
-		
-		
+
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
 }

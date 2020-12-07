@@ -1,7 +1,7 @@
 package springboot.askisi3.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,9 +50,9 @@ public class ReportsServiceImpl implements ReportsService {
 	}
 
 	@Override
-	public void save(ReportsDto theReportsDto) {
+	public ReportsDto save(ReportsDto theReportsDto) {
 		 reportsRepository.save(dtoToEntity(theReportsDto));
-		
+		return theReportsDto;
 	}
 	
 
@@ -90,12 +90,12 @@ public class ReportsServiceImpl implements ReportsService {
 	
 	
 	@Override
-	public List<Reports> findbyDateRep(Date dateRep) {
-		
+	public List<ReportsDto> findbyDateRep(LocalDate dateRep) {
+   
 		   List<Reports> result = reportsRepository.findByDateRep(dateRep);
 			
 			if (result!=null) {
-				return result;
+				return ReportsListToDtoList(result);
 					
 			}
 			else {

@@ -44,8 +44,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void save(ProductDto theProductDto) {
+	public ProductDto save(ProductDto theProductDto) {
 		productRepository.save(dtoToEntity(theProductDto));
+		return theProductDto;
 	}
 	
 	

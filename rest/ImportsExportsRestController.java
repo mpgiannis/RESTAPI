@@ -1,6 +1,7 @@
 package springboot.askisi3.rest;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +18,23 @@ import org.springframework.web.bind.annotation.RestController;
 import springboot.askisi3.dto.ImportsExportsDto;
 import springboot.askisi3.entity.ImportsExports;
 import springboot.askisi3.service.ImportsExportsService;
-import springboot.askisi3.service.ImportsExportsServiceImpl;
 
 @RestController
-@RequestMapping("/imports_exports")
+@RequestMapping("/api")
 public class ImportsExportsRestController {
 	
 	
 	private ImportsExportsService importsExportsService;
-	private ImportsExportsServiceImpl importsExportsServiceImpl;
 	
 	@Autowired
-	public ImportsExportsRestController(ImportsExportsService theImports_ExportsService,ImportsExportsServiceImpl a) {
+	public ImportsExportsRestController(ImportsExportsService theImports_ExportsService) {
 		importsExportsService = theImports_ExportsService;
-		importsExportsServiceImpl=a;
 	}
 	
-	@GetMapping("/api")
+	@GetMapping("/imports_exports")
 	public List<ImportsExportsDto> findAll() {
 		List<ImportsExports> list = importsExportsService.findAll();
-		return importsExportsServiceImpl.ImportsExportsListToDtoList(list);
+		return importsExportsService.ImportsExportsListToDtoList(list);
 	}
 
 	
@@ -56,8 +54,7 @@ public class ImportsExportsRestController {
 	@PostMapping("/imports_exports")
 	public ImportsExportsDto addImports_Exports(@RequestBody ImportsExportsDto theImportsExportsDto) {
 		theImportsExportsDto.setId(0);
-		importsExportsService.save(theImportsExportsDto);
-		return theImportsExportsDto;
+		return importsExportsService.save(theImportsExportsDto);
 	}
 	
 	@PutMapping("/imports_exports")
@@ -79,17 +76,26 @@ public class ImportsExportsRestController {
 	}
 	
 	
-	/*@GetMapping("/apothema/{date}/{productid}")
-	public List<ImportsExports> apothema(@RequestParam Date date, @RequestParam int productid){
-		List<ImportsExports> a = importsExportsService.findapothema(date,productid);
+	@GetMapping("/apothema/{date}/{productid}")
+	public int apothema(@PathVariable String date, @PathVariable int productid){
+		LocalDate localdate =LocalDate.parse(date).plusDays(1);
+		List<ImportsExports> imex = importsExportsService.findapothema(localdate,productid);
 				
-		if (a == null) {
+		if (imex == null) {
 			throw new RuntimeException(" imports_exports not found - ");
 		}
-	
-		return a;
+		int apothema=0;
+		for (ImportsExports temp : imex) {
+            if(temp.getReport().getType().equals("import")) {
+            	apothema=apothema+temp.getAmount();
+            }
+            else {
+            	apothema=apothema-temp.getAmount();
+            }
+        }
 		
-	}*/
+		return apothema;		
+	}
 	
 	@GetMapping("/apothema/{productid}")
 	public int findApothema(@PathVariable int productid) {

@@ -1,6 +1,6 @@
 package springboot.askisi3.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import springboot.askisi3.dto.ReportsDto;
@@ -11,13 +11,15 @@ public interface ReportsService {
 	
 	public Reports findById(int theId);
 	
-	public void save(ReportsDto theReportsDto);
+	public ReportsDto save(ReportsDto theReportsDto);
 	
 	public void deleteById(int theId);
 	
 	public ReportsDto update(ReportsDto newReports);
 	
-	public List<Reports> findbyDateRep(Date dateRep);
+	public List<ReportsDto> findbyDateRep(LocalDate dateRep);
+	
+	public List<ReportsDto> ReportsListToDtoList(List<Reports> entitylist);
 	
 
 	

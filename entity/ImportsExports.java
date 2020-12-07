@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
-@Entity
+@Entity(name="imports_exports")
 @Table(name="imports_exports")
 public class ImportsExports {
 	

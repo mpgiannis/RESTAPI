@@ -1,5 +1,6 @@
 package springboot.askisi3.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import springboot.askisi3.dao.ImportsExportsRepository;
-import springboot.askisi3.dao.ProductRepository;
-import springboot.askisi3.dao.RacksRepository;
-import springboot.askisi3.dao.ReportsRepository;
 import springboot.askisi3.dto.ImportsExportsDto;
 import springboot.askisi3.entity.ImportsExports;
 import springboot.askisi3.entity.Product;
@@ -21,20 +19,17 @@ import springboot.askisi3.entity.Reports;
 public class ImportsExportsServiceImpl implements ImportsExportsService {
 	
 private ImportsExportsRepository importsExportsRepository;
-private ReportsRepository reportsRepository;
+@Autowired
 private ReportsService reportsService;
-private ProductRepository productRepository;
+@Autowired
 private ProductService productService;
-private RacksRepository rackRepository;
+@Autowired
 private RacksService racksService;
 
 
 @Autowired
-	public ImportsExportsServiceImpl(ImportsExportsRepository theImports_ExportsRepository,ReportsService a,ProductService b,RacksService c) {
+	public ImportsExportsServiceImpl(ImportsExportsRepository theImports_ExportsRepository) {
 		importsExportsRepository = theImports_ExportsRepository;
-		reportsService=a;
-		productService=b;
-		racksService=c;
 	
 	}
 	
@@ -61,27 +56,23 @@ private RacksService racksService;
 	}
 
 	@Override
-	public void save(ImportsExportsDto theImportsExportsDto) {
+	public ImportsExportsDto save(ImportsExportsDto theImportsExportsDto) {
 		
-		Optional<Reports> report = reportsRepository.findById(theImportsExportsDto.getReportId());
-		Optional<Product> product = productRepository.findById(theImportsExportsDto.getProductId());
-		Optional<Racks> rack = rackRepository.findById(theImportsExportsDto.getRackId());
-		
-		if(report.isPresent()) 
-		{
-			if(product.isPresent()) 
-			{
+		Reports report = reportsService.findById(theImportsExportsDto.getReportId());
+		ImportsExportsDto imex =null;
+		if(report!=null) {
+			Product product = productService.findById(theImportsExportsDto.getProductId());
+			if(product!=null) {
+				Racks rack = racksService.findById(theImportsExportsDto.getRackId());
 				    
-				if(rack.isPresent()) {
+				if(rack!=null) {
 					importsExportsRepository.save(dtoToEntity(theImportsExportsDto));
+				    imex=theImportsExportsDto;
 				}
 				else {
 					
 					throw new RuntimeException("Did not found rack with this id :"+ theImportsExportsDto.getRackId());
-				}
-				
-		
-				
+				   }	
 			}
 			else 
 			{
@@ -93,8 +84,9 @@ private RacksService racksService;
 		{
 			throw new RuntimeException("Did not found report with this id :"+ theImportsExportsDto.getReportId());
 		}
-		
+		return imex;
 	}
+	
 	
 	@Override
 	public ImportsExportsDto update(ImportsExportsDto newImportsExportsDto) {
@@ -108,6 +100,7 @@ private RacksService racksService;
 			
 			
         	 updateImportsExports=importsExportsRepository.save(dtoToEntity(newImportsExportsDto));
+            
 		}
 		else {
 			throw new RuntimeException("Did not found ImportsExports id :"+ newImportsExportsDto.getId());
@@ -165,14 +158,14 @@ private RacksService racksService;
 	 }
 
 
-	/*@Override
-	public List<ImportsExports> findapothema(Date date, int productid) {
+	@Override
+	public List<ImportsExports> findapothema(LocalDate date, int productid) {
 		List<ImportsExports> result = importsExportsRepository.findApothema(date, productid);
 		
 		List<ImportsExports> theImportsExports = null;
 		
 		if (result!=null) {
-			theImportsExports = importsExportsRepository.findApothema(date, productid);
+			theImportsExports =importsExportsRepository.findApothema(date, productid);
 				
 		}
 		else {
@@ -185,7 +178,7 @@ private RacksService racksService;
 	
 	
 
-	}*/
+	}
 	
 
 

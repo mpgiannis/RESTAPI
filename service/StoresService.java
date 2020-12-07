@@ -12,11 +12,13 @@ public interface StoresService {
 	
 	public Stores findById(int theId);
 	
-	public void save(StoresDto theStore);
+	public StoresDto save(StoresDto theStore);
 	
 	public void deleteById(int theId);
 	
 	public StoresDto update(StoresDto newStore);
+	
+	public List<StoresDto> StoresListToDtoList(List<Stores> entitylist);
 	
 	//public boolean existsbyId(Integer id);
 	

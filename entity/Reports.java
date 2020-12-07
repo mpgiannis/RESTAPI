@@ -1,6 +1,6 @@
 package springboot.askisi3.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,9 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity
+@Entity(name="reports")
 @Table(name="reports")
 public class Reports {
 	
@@ -28,7 +27,7 @@ public class Reports {
 	private Integer id;
 	
 	@Column(name="date_rep")
-	private Date dateRep;
+	private LocalDate dateRep;
 	
 	@Column(name="type")
 	private String type;
@@ -47,7 +46,7 @@ public class Reports {
 	
 	public Reports() {}
 
-	public Reports(Date date_rep,String type, String description_reason, String received_delivered_by, String infos) {
+	public Reports(LocalDate date_rep,String type, String description_reason, String received_delivered_by, String infos) {
 		
 		this.dateRep =  date_rep;
 		this.type = type;
@@ -57,11 +56,11 @@ public class Reports {
 	
 	}
 
-	public Date getDateRep() {
+	public LocalDate getDateRep() {
 		return dateRep;
 	}
 
-	public void setDateRep(Date dateRep) {
+	public void setDateRep(LocalDate dateRep) {
 		this.dateRep = dateRep;
 	}
 
@@ -105,7 +104,7 @@ public class Reports {
 	public void setInfos(String infos) {
 		this.infos = infos;
 	}
-	@JsonIgnore
+	
 	public List<ImportsExports> getImports_exports() {
 		return importsExports;
 	}

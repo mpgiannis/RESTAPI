@@ -15,24 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 import springboot.askisi3.dto.ProductDto;
 import springboot.askisi3.entity.Product;
 import springboot.askisi3.service.ProductService;
-import springboot.askisi3.service.ProductServiceImpl;
 
 @RestController
 @RequestMapping("/api")
 public class ProductRestController {
 
 	private ProductService productService;
-	private ProductServiceImpl productServiceImpl;
 	@Autowired
-	public ProductRestController(ProductService theProductService,ProductServiceImpl a) {
+	public ProductRestController(ProductService theProductService) {
 		productService = theProductService;
-		productServiceImpl=a;
 	}
 	
 	// expose "/products" and return list of products
 	@GetMapping("/products")
 	public List<ProductDto> findAll() {
-		return productServiceImpl.ProductListToDtoList(productService.findAll());
+		return productService.ProductListToDtoList(productService.findAll());
 	}
 
 	// add mapping for GET /products/{productId}
@@ -59,9 +56,7 @@ public class ProductRestController {
 		
 		theProductDto.setId(0);
 		
-		productService.save(theProductDto);
-		
-		return theProductDto;
+		return productService.save(theProductDto);
 	}
 	
 	// add mapping for PUT /products - update existing product

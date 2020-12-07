@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import springboot.askisi3.dto.RacksDto;
 import springboot.askisi3.entity.Racks;
 import springboot.askisi3.service.RacksService;
-import springboot.askisi3.service.RacksServiceImpl;
 
 
 @RestController
@@ -24,18 +23,16 @@ public class RacksRestController {
 
 	
 	private RacksService racksService;
-	private RacksServiceImpl racksServiceImpl;
 	@Autowired
-	public RacksRestController(RacksService theRacksService,RacksServiceImpl a) {
+	public RacksRestController(RacksService theRacksService) {
 		racksService = theRacksService;
-		racksServiceImpl=a;
 	}
 	
 	// expose "/racks" and return list of racks
 	@GetMapping("/racks")
 	public List<RacksDto> findAll() {
 		List<Racks> list = racksService.findAll();
-		return  racksServiceImpl.RacksListToDtoList(list);
+		return  racksService.RacksListToDtoList(list);
 	}
 	
 	@GetMapping("/racks/{racksId}")
@@ -54,13 +51,9 @@ public class RacksRestController {
 	
 		@PostMapping("/racks")
 		public RacksDto addRacks(@RequestBody RacksDto theRackDto) {
-			
 			theRackDto.setId(0);
-			
-			racksService.save(theRackDto);
-			
-			return theRackDto;
-		}
+			return racksService.save(theRackDto);
+			}
 		
 		// add mapping for PUT /racks  - update existing racks
 		

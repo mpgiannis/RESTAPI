@@ -50,8 +50,9 @@ public class StoresServiceImpl implements StoresService
 	
 	
 	@Override
-	public void save(StoresDto theStoresDto) {
+	public StoresDto save(StoresDto theStoresDto) {
 		storesRepository.save(dtoToEntity(theStoresDto));
+		return theStoresDto;
 	}
 	
 	@Override

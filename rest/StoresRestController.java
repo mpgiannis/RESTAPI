@@ -15,25 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 import springboot.askisi3.dto.StoresDto;
 import springboot.askisi3.entity.Stores;
 import springboot.askisi3.service.StoresService;
-import springboot.askisi3.service.StoresServiceImpl;
 
 @RestController
 @RequestMapping("/api")
 public class StoresRestController {
 	private StoresService storesService;
-	private StoresServiceImpl storesServiceImpl;
 	
 	@Autowired
-	public StoresRestController(StoresService theStoresService,StoresServiceImpl a) {
+	public StoresRestController(StoresService theStoresService) {
 		storesService = theStoresService;
-		storesServiceImpl=a;
+		
 	}
 	
 	// expose "/stores" and return list of stores
 	@GetMapping("/stores")
 	public List<StoresDto> findAll() {
 		
-		return  storesServiceImpl.StoresListToDtoList(storesService.findAll());
+		return  storesService.StoresListToDtoList(storesService.findAll());
 	}
 
 	
@@ -56,16 +54,8 @@ public class StoresRestController {
 	
 		@PostMapping("/stores")
 		public StoresDto addStores(@RequestBody StoresDto theStoresDto) {
-			
-			// also just in case they pass an id in JSON ... set id to 0
-			// this is to force a save of new item ... instead of update
-			
 			theStoresDto.setId(0);
-			
-			storesService.save(theStoresDto);
-			
-			return theStoresDto;
-		}
+			return storesService.save(theStoresDto);}
 		
 		// add mapping for PUT /stores - update existing stores
 		

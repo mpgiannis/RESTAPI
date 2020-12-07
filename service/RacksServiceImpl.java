@@ -7,34 +7,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import springboot.askisi3.dao.RacksRepository;
-import springboot.askisi3.dao.StoresRepository;
 import springboot.askisi3.dto.RacksDto;
 import springboot.askisi3.entity.Racks;
-import springboot.askisi3.entity.Stores;
-
 
 @Service
 public class RacksServiceImpl implements RacksService{
 	
+	
 	private RacksRepository racksRepository;
-	private StoresService storeService;
-	private StoresRepository storesRepository;
 	@Autowired
-	public RacksServiceImpl(RacksRepository theRacksRepository,StoresRepository b,StoresService c) {
+	private StoresService storeService;
+	@Autowired
+	public RacksServiceImpl(RacksRepository theRacksRepository) {
 		racksRepository = theRacksRepository;
-		storesRepository=b;
-		storeService=c;
 	}
 	
 
 	@Override
 	public List<Racks> findAll() {
 		List<Racks> racks=racksRepository.findAll();	
-		return racks;
-		
-	}
+		return racks;}
 
-	
 	
 	@Override
 	public Racks findById(int theId) {
@@ -55,16 +48,14 @@ public class RacksServiceImpl implements RacksService{
 
 	
 	@Override
-	public void save(RacksDto theRacksDto) {
-		
-		Optional<Stores> store = storesRepository.findById(theRacksDto.getStoreId());
-		if(store.isPresent()) {
-			
+	public RacksDto save(RacksDto theRacksDto) {
+		if( storeService.findById(theRacksDto.getStoreId())!=null){
 			racksRepository.save(dtoToEntity(theRacksDto));
-		}
+			return theRacksDto;}
+		
 		else {
 			throw new RuntimeException("Did not found store with this id :"+ theRacksDto.getStoreId());
-		}
+			}
 	}
 
 	

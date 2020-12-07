@@ -11,10 +11,12 @@ public interface ProductService {
 	
 	public Product findById(int theId);
 	
-	public void save(ProductDto theProductDto);
+	public ProductDto save(ProductDto theProductDto);
 	
 	public void deleteById(int theId);
 	
 	public ProductDto update(ProductDto newProduct);
+	
+	public List<ProductDto> ProductListToDtoList(List<Product> entitylist);
 	
 }
