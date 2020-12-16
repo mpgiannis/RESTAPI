@@ -1,14 +1,14 @@
 package springboot.askisi3.dto;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import springboot.askisi3.entity.ImportsExports;
 import springboot.askisi3.entity.Reports;
-import springboot.askisi3.service.ImportsExportsService;
 
 public class ReportsDto {
 
-	private ImportsExportsService imexService;
 	
 	private Integer id;
 	
@@ -22,7 +22,7 @@ public class ReportsDto {
 	
 	private String infos;
 	
-	 List<ImportsExportsDto> importsExportsDto;
+	 List<ImportsExportsDto> importsExports;
 	
 	public ReportsDto() {}
 	
@@ -33,8 +33,11 @@ public class ReportsDto {
 		this.descriptionReason=reports.getDescriptionReason();
 		this.receivedDeliveredBy=reports.getReceivedDeliveredBy();
 		this.infos=reports.getInfos();
-		this.importsExportsDto=imexService.ImportsExportsListToDtoList(reports.getImports_exports());
-		
+		List<ImportsExportsDto> importsExportsDto =new ArrayList<ImportsExportsDto>();
+		for(ImportsExports imex : reports.getImports_exports()) {
+			importsExportsDto.add(new ImportsExportsDto(imex));			
+		   }
+		this.importsExports=importsExportsDto;
 		
 	}
 
@@ -86,12 +89,12 @@ public class ReportsDto {
 		this.infos = infos;
 	}
 
-	public List<ImportsExportsDto> getImportsExportsDto() {
-		return importsExportsDto;
+	public List<ImportsExportsDto> getImportsExports() {
+		return importsExports;
 	}
 
-	public void setImportsExportsDto(List<ImportsExportsDto> importsExportsDto) {
-		this.importsExportsDto = importsExportsDto;
+	public void setImportsExports(List<ImportsExportsDto> importsExportsDto) {
+		this.importsExports = importsExportsDto;
 	}
 	
 	

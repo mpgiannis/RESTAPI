@@ -1,13 +1,12 @@
 package springboot.askisi3.dto;
 
-import java.util.List;
+
 
 import springboot.askisi3.entity.Product;
-import springboot.askisi3.service.ImportsExportsService;
 
 public class ProductDto {
 
-	private ImportsExportsService imexService;
+	
 	
 	Integer id;
 	
@@ -19,7 +18,7 @@ public class ProductDto {
 	
 	String measureUnit;
 	
-	List<ImportsExportsDto> importsExportsDto;
+
 	
 	public ProductDto() {}
 	
@@ -30,8 +29,6 @@ public class ProductDto {
 		this.description=product.getDescription();
 		this.barcode=product.getBarcode();
 		this.measureUnit=product.getMeasure_unit();
-		this.importsExportsDto=imexService.ImportsExportsListToDtoList(product.getImports_exports());
-		
 		
 	}
 
@@ -94,19 +91,8 @@ public class ProductDto {
 	public void setMeasureUnit(String measureUnit) {
 		this.measureUnit = measureUnit;
 	}
+	
 
-	public List<ImportsExportsDto> getImportsExportsDto() {
-		return importsExportsDto;
-	}
-
-	public void setImportsExportsDto(List<ImportsExportsDto> importsExportsDto) {
-		this.importsExportsDto = importsExportsDto;
-	}
-	
-	
-	
-	
-	
 	
 
 }

@@ -4,6 +4,8 @@ package springboot.askisi3.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import springboot.askisi3.dto.ImExDto;
+import springboot.askisi3.dto.ImExSearch;
 import springboot.askisi3.dto.ImportsExportsDto;
 import springboot.askisi3.entity.ImportsExports;
 
@@ -23,7 +25,8 @@ public interface ImportsExportsService {
 	
 	public List<ImportsExportsDto> ImportsExportsListToDtoList(List<ImportsExports> entitylist);
 	
+	public List<ImportsExports> findapothema(String date,int productId);
 	
-	public List<ImportsExports> findapothema(LocalDate date,int productId);
+	public List<ImExDto> searchImEx(ImExSearch search);
 	
 }

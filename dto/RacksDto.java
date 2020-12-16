@@ -1,13 +1,13 @@
 package springboot.askisi3.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import springboot.askisi3.entity.ImportsExports;
 import springboot.askisi3.entity.Racks;
-import springboot.askisi3.service.ImportsExportsService;
 
 public class RacksDto {
 
-	private ImportsExportsService imexService;
 	
 	Integer id;
 	
@@ -15,7 +15,7 @@ public class RacksDto {
 	
 	Integer storeId;
 	
-	List<ImportsExportsDto> importsExportsDto;
+	List<ImportsExportsDto> importsExports;
 	
 	public RacksDto() {}
 	
@@ -24,8 +24,11 @@ public class RacksDto {
 		this.id=rack.getId();
 		this.description=rack.getDescription();
 		this.storeId=rack.getStore().getId();
-		this.importsExportsDto=imexService.ImportsExportsListToDtoList(rack.getImports_exports());
-	
+		List<ImportsExportsDto> importsExportsDto =new ArrayList<ImportsExportsDto>();
+		for(ImportsExports imex : rack.getImports_exports()) {
+			importsExportsDto.add(new ImportsExportsDto(imex));			
+		   }
+	    this.importsExports=importsExportsDto;
 	}
 
 	public Integer getId() {
@@ -52,12 +55,12 @@ public class RacksDto {
 		this.storeId = storeId;
 	}
 
-	public List<ImportsExportsDto> getImportsExportsDto() {
-		return importsExportsDto;
+	public List<ImportsExportsDto> getImportsExports() {
+		return importsExports;
 	}
 
-	public void setImportsExportsDto(List<ImportsExportsDto> importsExportsDto) {
-		this.importsExportsDto = importsExportsDto;
+	public void setImportsExports(List<ImportsExportsDto> importsExportsDto) {
+		this.importsExports = importsExportsDto;
 	}
 
 	

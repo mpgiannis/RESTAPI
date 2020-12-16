@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import springboot.askisi3.dao.ImportsExportsRepository;
+import springboot.askisi3.dto.ImExDto;
+import springboot.askisi3.dto.ImExSearch;
 import springboot.askisi3.dto.ImportsExportsDto;
 import springboot.askisi3.entity.ImportsExports;
 import springboot.askisi3.entity.Product;
@@ -36,6 +38,7 @@ private RacksService racksService;
 	@Override
 	public List<ImportsExports> findAll() {
 		return importsExportsRepository.findAll();
+	
 	}
 
 	@Override
@@ -159,13 +162,13 @@ private RacksService racksService;
 
 
 	@Override
-	public List<ImportsExports> findapothema(LocalDate date, int productid) {
-		List<ImportsExports> result = importsExportsRepository.findApothema(date, productid);
+	public List<ImportsExports> findapothema(String date, int productid) {
+		List<ImportsExports> result = importsExportsRepository.findByDateAndProductId(date, productid);
 		
 		List<ImportsExports> theImportsExports = null;
 		
 		if (result!=null) {
-			theImportsExports =importsExportsRepository.findApothema(date, productid);
+			theImportsExports =result;
 				
 		}
 		else {
@@ -178,6 +181,12 @@ private RacksService racksService;
 	
 	
 
+	}
+
+	@Override
+	public List<ImExDto> searchImEx(ImExSearch search) {
+		// TODO Auto-generated method stub
+		return importsExportsRepository.searchImEx(search);
 	}
 	
 

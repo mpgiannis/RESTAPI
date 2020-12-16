@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import springboot.askisi3.dto.ImExDto;
+import springboot.askisi3.dto.ImExSearch;
 import springboot.askisi3.dto.ImportsExportsDto;
 import springboot.askisi3.entity.ImportsExports;
 import springboot.askisi3.service.ImportsExportsService;
@@ -37,6 +39,13 @@ public class ImportsExportsRestController {
 		return importsExportsService.ImportsExportsListToDtoList(list);
 	}
 
+	@PostMapping("/imports_exports")
+	public List<ImExDto> searchImEx(@RequestBody  ImExSearch search){
+		
+		return importsExportsService.searchImEx(search);
+	}
+	
+	
 	
 	@GetMapping("/imports_exports/{imports_exportsId}")
 	public ImportsExportsDto getImports_Exports(@PathVariable int imports_exportsId) {
@@ -78,8 +87,8 @@ public class ImportsExportsRestController {
 	
 	@GetMapping("/apothema/{date}/{productid}")
 	public int apothema(@PathVariable String date, @PathVariable int productid){
-		LocalDate localdate =LocalDate.parse(date).plusDays(1);
-		List<ImportsExports> imex = importsExportsService.findapothema(localdate,productid);
+		
+		List<ImportsExports> imex = importsExportsService.findapothema(date,productid);
 				
 		if (imex == null) {
 			throw new RuntimeException(" imports_exports not found - ");

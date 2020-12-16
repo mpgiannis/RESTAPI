@@ -1,18 +1,20 @@
 package springboot.askisi3.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import springboot.askisi3.entity.Racks;
 import springboot.askisi3.entity.Stores;
-import springboot.askisi3.service.RacksService;
 
 public class StoresDto {
-	private RacksService racksService;
+	
 	
 	Integer id;
 	
 	String description;
 	
-	List<RacksDto> racksDto;
+	List<RacksDto> racks ;
+	
 	public StoresDto() {}
 
 
@@ -20,7 +22,12 @@ public class StoresDto {
 		
 		this.id =store.getId();
 		this.description = store.getDescription();
-		this.racksDto=racksService.RacksListToDtoList(store.getRacks());
+		List<RacksDto> racksDto = new ArrayList<RacksDto>();
+		for(Racks rack : store.getRacks()) {
+			racksDto.add(new RacksDto(rack));			
+		   }
+		this.racks=racksDto;
+		
 	}
 
 	public Integer getId() {
@@ -39,12 +46,12 @@ public class StoresDto {
 		this.description = description;
 	}
 
-	public List<RacksDto> getRacksDto() {
-		return racksDto;
+	public List<RacksDto> getRacks() {
+		return racks;
 	}
 
-	public void setRacksDto(List<RacksDto> racksDto) {
-		this.racksDto = racksDto;
+	public void setRacks(List<RacksDto> racksDto) {
+		this.racks = racksDto;
 	}
 	
 	
