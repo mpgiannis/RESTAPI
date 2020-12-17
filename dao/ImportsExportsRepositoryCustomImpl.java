@@ -2,37 +2,24 @@ package springboot.askisi3.dao;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.expression.spel.ast.Projection;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.FactoryExpression;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-
 import springboot.askisi3.dto.ImExDto;
 import springboot.askisi3.dto.ImExSearch;
-import springboot.askisi3.dto.ImportsExportsDto;
 import springboot.askisi3.entity.ImportsExports;
 import springboot.askisi3.entity.QImportsExports;
 import springboot.askisi3.entity.QProduct;
 import springboot.askisi3.entity.QRacks;
 import springboot.askisi3.entity.QReports;
-import springboot.askisi3.entity.Reports;
 
 @Service
 public class ImportsExportsRepositoryCustomImpl implements ImportsExportsRepositoryCustom {
@@ -49,13 +36,17 @@ public class ImportsExportsRepositoryCustomImpl implements ImportsExportsReposit
 
 	@Override
 	public List<ImExDto> searchImEx(ImExSearch search) {
+		Order order =  Order.ASC;
+		NumberPath<Integer> a = QImportsExports.importsExports.id;
+		OrderSpecifier<?> orderSpecifier = new OrderSpecifier<>(order, a);
+		
 		JPAQuery<ImExDto> query =new JPAQuery<>(entityManager);
 				query.select(projection())
 				.from(importsExports)
 				.join(importsExports.report, reports)
 				.join(importsExports.rack, racks )
 				.join(importsExports.product, product)
-				.where(predicate(search));
+				.where(predicate(search)).orderBy(orderSpecifier);
 				
 		return query.fetch();
 		

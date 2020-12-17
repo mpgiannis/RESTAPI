@@ -109,12 +109,17 @@ public class ReportsServiceImpl implements ReportsService {
 	public Reports dtoToEntity(ReportsDto reportsDto) {
 		
 		Reports reports = new Reports();
-		
+		if(reportsDto.getId()!=null)
 		reports.setId(reportsDto.getId());
+		if(reportsDto.getDateRep()!=null)
 		reports.setDateRep(reportsDto.getDateRep());
+		if(reportsDto.getType()!=null)
 		reports.setType(reportsDto.getType());
+		if(reportsDto.getDescriptionReason()!=null)
 		reports.setDescriptionReason(reportsDto.getDescriptionReason());
+		if(reportsDto.getReceivedDeliveredBy()!=null)
 		reports.setReceivedDeliveredBy(reportsDto.getReceivedDeliveredBy());
+		if(reportsDto.getInfos()!=null)
 		reports.setInfos(reportsDto.getInfos());
 		
 		return reports;

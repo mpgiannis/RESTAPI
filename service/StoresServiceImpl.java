@@ -90,8 +90,9 @@ public class StoresServiceImpl implements StoresService
 	public Stores dtoToEntity(StoresDto storeDto) {
 		
 		Stores store = new Stores();
-		
+		if(storeDto.getId()!=null)
 		store.setId(storeDto.getId());
+		if(storeDto.getDescription()!=null)
 		store.setDescription(storeDto.getDescription());
 		
 		return store;

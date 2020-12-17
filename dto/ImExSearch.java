@@ -27,6 +27,11 @@ public class ImExSearch {
 	public void setTypeRep(String typeRep) {
 		this.typeRep = typeRep;
 	}
+
+	@Override
+	public String toString() {
+		return "ImExSearch [productId=" + productId + ", typeRep=" + typeRep + "]";
+	}
 	
 
 }

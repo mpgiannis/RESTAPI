@@ -83,11 +83,16 @@ public class ProductServiceImpl implements ProductService {
     public Product dtoToEntity(ProductDto productDto) {
 		
     	Product product = new Product();
-		
-    	product.setId(productDto.getId());
+    	
+		if(productDto.getId()!=null) {
+    	product.setId(productDto.getId());}
+		if(productDto.getName()!=null)
     	product.setName(productDto.getName());
+		if(productDto.getDescription()!=null)
     	product.setDescription(productDto.getDescription());
+		if(productDto.getBarcode()!=null)
     	product.setBarcode(productDto.getBarcode());
+		if(productDto.getMeasureUnit()!=null)
     	product.setMeasure_unit(productDto.getMeasureUnit());
     	
 		

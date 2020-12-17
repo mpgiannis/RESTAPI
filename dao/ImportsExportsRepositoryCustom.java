@@ -3,7 +3,6 @@ import java.util.List;
 
 import springboot.askisi3.dto.ImExDto;
 import springboot.askisi3.dto.ImExSearch;
-import springboot.askisi3.dto.ImportsExportsDto;
 import springboot.askisi3.entity.ImportsExports;
 
 public interface ImportsExportsRepositoryCustom  {

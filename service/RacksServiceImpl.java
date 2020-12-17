@@ -93,9 +93,11 @@ public class RacksServiceImpl implements RacksService{
 	public Racks dtoToEntity(RacksDto rackDto) {
 		
 		Racks rack = new Racks();
-		
+		if(rackDto.getId()!=null)
 		rack.setId(rackDto.getId());
+		if(rackDto.getDescription()!=null)
 		rack.setDescription(rackDto.getDescription());
+		if(storeService.findById(rackDto.getStoreId())!=null)
 		rack.setStore(storeService.findById(rackDto.getStoreId()));
 		
 		return rack;

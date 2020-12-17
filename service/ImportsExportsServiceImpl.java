@@ -1,6 +1,5 @@
 package springboot.askisi3.service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -138,11 +137,15 @@ private RacksService racksService;
 	public ImportsExports dtoToEntity(ImportsExportsDto importexportDto) {
 		
 		ImportsExports imex = new ImportsExports();
-		
+		if(importexportDto.getId()!=null)
 		imex.setId(importexportDto.getId());
+		if(reportsService.findById(importexportDto.getReportId())!=null)
 		imex.setReport(reportsService.findById(importexportDto.getReportId()));
+		if(productService.findById(importexportDto.getProductId())!=null)
 		imex.setProduct(productService.findById(importexportDto.getProductId()));
+		if(racksService.findById(importexportDto.getRackId())!=null)
 		imex.setRack(racksService.findById(importexportDto.getRackId()));
+		if(importexportDto.getAmount()!=null)
 		imex.setAmount(importexportDto.getAmount());
 		return imex;
 	}
