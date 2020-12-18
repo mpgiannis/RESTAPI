@@ -49,7 +49,7 @@ public class ImportsExportsRestController {
 		ImportsExports theImportsExports = importsExportsService.findById(imports_exportsId);
 		
 		if (theImportsExports == null) {
-			throw new RuntimeException("Imports_Exports id not found - " + imports_exportsId);
+			throw new NoFoundException("Imports_Exports id not found - " + imports_exportsId);
 		}
 		
 		return new ImportsExportsDto(theImportsExports);
@@ -72,7 +72,7 @@ public class ImportsExportsRestController {
 	public String deleteImports_Exports(@PathVariable int imports_exportsId) {	
 		ImportsExports tempImports_Exports = importsExportsService.findById(imports_exportsId);
 		if (tempImports_Exports == null) {
-			throw new RuntimeException("Imports_Exports id not found - " + imports_exportsId);
+			throw new NoFoundException("Imports_Exports id not found - " + imports_exportsId);
 		}
 		
 		importsExportsService.deleteById(imports_exportsId);

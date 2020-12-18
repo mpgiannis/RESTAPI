@@ -39,7 +39,7 @@ public class ReportsRestController {
 		Reports theReports = reportsService.findById(reportsId);
 		
 		if (theReports == null) {
-			throw new RuntimeException("Reports id not found - " + reportsId);
+			throw new NoFoundException("Reports id not found - " + reportsId);
 		}
 		
 		return new ReportsDto(theReports);
@@ -66,7 +66,7 @@ public class ReportsRestController {
 			Reports tempReports = reportsService.findById(reportsId);
 			
 			if (tempReports == null) {
-				throw new RuntimeException("Reports id not found - " + reportsId);
+				throw new NoFoundException("Reports id not found - " + reportsId);
 			}
 			
 			reportsService.deleteById(reportsId);
@@ -82,7 +82,7 @@ public class ReportsRestController {
 			   List<ReportsDto> tempReports = reportsService.findbyDateRep(localdate);
 				
 				if (tempReports == null) {
-					throw new RuntimeException("Reports not found - " + dateRep);
+					throw new NoFoundException("Reports not found - " + dateRep);
 				}
 			
 			

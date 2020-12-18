@@ -43,17 +43,10 @@ private RacksService racksService;
 	@Override
 	public ImportsExports findById(int theId) {
 		Optional<ImportsExports> result = importsExportsRepository.findById(theId);
-		
 		ImportsExports theImports_Exports = null;
-		
 		if (result.isPresent()) {
 			theImports_Exports = result.get();
 		}
-		else {
-			
-			throw new RuntimeException("Did not find Imports_Exports id - " + theId);
-		}
-		
 		return theImports_Exports;
 	}
 

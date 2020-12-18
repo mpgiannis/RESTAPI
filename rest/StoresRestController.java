@@ -43,7 +43,7 @@ public class StoresRestController {
 		Stores theStores = storesService.findById(storesId);
 		
 		if (theStores == null) {
-			throw new RuntimeException("Stores id not found - " + storesId);
+			throw new NoFoundException("Stores id not found - " + storesId);
 		}
 		
 		return new StoresDto(theStores);
@@ -77,7 +77,7 @@ public class StoresRestController {
 			// throw exception if null
 			
 			if (tempStores == null) {
-				throw new RuntimeException("Stores id not found - " + storesId);
+				throw new NoFoundException("Stores id not found - " + storesId);
 			}
 			
 			storesService.deleteById(storesId);

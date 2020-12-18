@@ -41,7 +41,7 @@ public class RacksRestController {
 		Racks theRacks = racksService.findById(racksId);
 		
 		if (theRacks == null) {
-			throw new RuntimeException("Racks id not found - " + racksId);
+			throw new NoFoundException("Racks id not found - " + racksId);
 		}
 		
 		return new RacksDto(theRacks);
@@ -76,7 +76,7 @@ public class RacksRestController {
 			// throw exception if null
 			
 			if (tempRacks == null) {
-				throw new RuntimeException("Racks id not found - " + racksId);
+				throw new NoFoundException("Racks id not found - " + racksId);
 			}
 			
 			racksService.deleteById(racksId);

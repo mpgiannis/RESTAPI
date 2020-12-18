@@ -38,12 +38,19 @@ public class ProductRestController {
 	public ProductDto getProduct(@PathVariable int productId) {
 		
 		Product theProduct = productService.findById(productId);
+		ProductDto a =null;
 		
-		if (theProduct == null) {
-			throw new RuntimeException("Product id not found - " + productId);
+		if (theProduct == null) 
+		
+		{
+			throw new NoFoundException("Product id not found - " + productId);
 		}
+		else {a=new ProductDto(theProduct);}
 		
-		return new ProductDto(theProduct);
+		
+		
+		
+		return  a;
 	}
 	
 	// add mapping for POST /products - add new product
@@ -69,7 +76,7 @@ public class ProductRestController {
 	
 	// add mapping for DELETE /products/{productId} - delete product
 	
-	@DeleteMapping("/product/{productId}")
+	@DeleteMapping("/products/{productId}")
 	public String deleteProduct(@PathVariable int productId) {
 		
 		Product tempProduct = productService.findById(productId);
@@ -77,13 +84,16 @@ public class ProductRestController {
 		// throw exception if null
 		
 		if (tempProduct == null) {
-			throw new RuntimeException("Employee id not found - " + productId);
+			throw new NoFoundException("Employee id not found - " + productId);
 		}
 		
 		productService.deleteById(productId);
 		
 		return "Deleted product id - " + productId;
 	}
+	
+
+	
 	
 }
 

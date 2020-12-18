@@ -29,17 +29,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product findById(int theId) {
 		Optional<Product> result = productRepository.findById(theId);
-		
 		Product theProduct = null;
-		
 		if (result.isPresent()) {
 			theProduct = result.get();
 		}
-		else {
-			// we didn't find the product
-			throw new RuntimeException("Did not find product id - " + theId);
-		}
-		
 		return theProduct;
 	}
 
