@@ -17,7 +17,7 @@ import springboot.askisi3.entity.Stores;
 import springboot.askisi3.service.StoresService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/stores")
 public class StoresRestController {
 	private StoresService storesService;
 	
@@ -28,7 +28,7 @@ public class StoresRestController {
 	}
 	
 	// expose "/stores" and return list of stores
-	@GetMapping("/stores")
+	@GetMapping("")
 	public List<StoresDto> findAll() {
 		
 		return  storesService.StoresListToDtoList(storesService.findAll());
@@ -37,7 +37,7 @@ public class StoresRestController {
 	
 	// add mapping for GET /stores/{storesId}
 	
-	@GetMapping("/stores/{storesId}")
+	@GetMapping("/{storesId}")
 	public StoresDto getStores(@PathVariable int storesId) {
 		
 		Stores theStores = storesService.findById(storesId);
@@ -52,14 +52,16 @@ public class StoresRestController {
 	
 	// add mapping for POST /stores - add new stores
 	
-		@PostMapping("/stores")
+		@PostMapping("")
 		public StoresDto addStores(@RequestBody StoresDto theStoresDto) {
+			
 			theStoresDto.setId(0);
+			
 			return storesService.save(theStoresDto);}
 		
 		// add mapping for PUT /stores - update existing stores
 		
-		@PutMapping("/stores")
+		@PutMapping("")
 		public StoresDto updateStores(@RequestBody StoresDto theStores) {
 			
 			return storesService.update(theStores);
@@ -69,7 +71,7 @@ public class StoresRestController {
 		
 		// add mapping for DELETE /stores/{storesId} - delete stores
 		
-		@DeleteMapping("/stores/{storesId}")
+		@DeleteMapping("/{storesId}")
 		public String deleteStores(@PathVariable int storesId) {
 			
 			Stores tempStores = storesService.findById(storesId);
@@ -81,8 +83,8 @@ public class StoresRestController {
 			}
 			
 			storesService.deleteById(storesId);
-			
-			return "Deleted Stores id - " + storesId;
+		
+			return "Deleted Store with id - " + storesId;
 		}
 	
 	

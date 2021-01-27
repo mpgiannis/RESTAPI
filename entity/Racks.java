@@ -31,11 +31,11 @@ public class Racks {
 		@Column(name="description")
 		private String description;
 	
-		@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		@ManyToOne( fetch=FetchType.LAZY)
 		@JoinColumn(name = "stores_id" )
 		private Stores store;
 		
-		@OneToMany(mappedBy = "rack",orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		@OneToMany(mappedBy = "rack", fetch=FetchType.LAZY)
 		private List<ImportsExports> importsExports;
 		
 		public Racks() {}
@@ -79,12 +79,12 @@ public class Racks {
 		}
 
 		
-		public List<ImportsExports> getImports_exports() {
+		public List<ImportsExports> getImportsExports() {
 			return importsExports;
 		}
 
 
-		public void setImports_exports(List<ImportsExports> importsExports) {
+		public void setImportsExports(List<ImportsExports> importsExports) {
 			this.importsExports = importsExports;
 		}
 

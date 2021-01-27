@@ -8,7 +8,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import springboot.askisi3.dao.ReportsRepository;
+import springboot.askisi3.dto.ImportsExportsDto;
 import springboot.askisi3.dto.ReportsDto;
+import springboot.askisi3.entity.ImportsExports;
 import springboot.askisi3.entity.Reports;
 
 
@@ -16,7 +18,8 @@ import springboot.askisi3.entity.Reports;
 public class ReportsServiceImpl implements ReportsService {
 	private ReportsRepository reportsRepository;
 
-	
+	@Autowired
+	private ImportsExportsServiceImpl imex;
 	@Autowired
 	public ReportsServiceImpl(ReportsRepository theReportsRepository) {
 		reportsRepository = theReportsRepository;
@@ -51,8 +54,8 @@ public class ReportsServiceImpl implements ReportsService {
 
 	@Override
 	public ReportsDto save(ReportsDto theReportsDto) {
-		 reportsRepository.save(dtoToEntity(theReportsDto));
-		return theReportsDto;
+		 
+		return new ReportsDto(reportsRepository.save(dtoToEntity(theReportsDto)));
 	}
 	
 
@@ -110,17 +113,25 @@ public class ReportsServiceImpl implements ReportsService {
 		
 		Reports reports = new Reports();
 		if(reportsDto.getId()!=null)
-		reports.setId(reportsDto.getId());
+			reports.setId(reportsDto.getId());
 		if(reportsDto.getDateRep()!=null)
-		reports.setDateRep(reportsDto.getDateRep());
+			reports.setDateRep(reportsDto.getDateRep());
 		if(reportsDto.getType()!=null)
-		reports.setType(reportsDto.getType());
+			reports.setType(reportsDto.getType());
 		if(reportsDto.getDescriptionReason()!=null)
-		reports.setDescriptionReason(reportsDto.getDescriptionReason());
+			reports.setDescriptionReason(reportsDto.getDescriptionReason());
 		if(reportsDto.getReceivedDeliveredBy()!=null)
-		reports.setReceivedDeliveredBy(reportsDto.getReceivedDeliveredBy());
+			reports.setReceivedDeliveredBy(reportsDto.getReceivedDeliveredBy());
 		if(reportsDto.getInfos()!=null)
-		reports.setInfos(reportsDto.getInfos());
+			reports.setInfos(reportsDto.getInfos());
+		if(reportsDto.getImportsExports()!=null) {
+			List<ImportsExports> list = new ArrayList<>();
+			for(ImportsExportsDto imexDto:reportsDto.getImportsExports()) {
+				ImportsExports temp = imex.dtoToEntity(imexDto);
+				list.add(temp);
+			}
+		
+			reports.setImportsExports(list);}
 		
 		return reports;
 	}

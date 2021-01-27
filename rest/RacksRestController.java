@@ -18,7 +18,7 @@ import springboot.askisi3.service.RacksService;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/racks")
 public class RacksRestController {
 
 	
@@ -29,13 +29,13 @@ public class RacksRestController {
 	}
 	
 	// expose "/racks" and return list of racks
-	@GetMapping("/racks")
+	@GetMapping("")
 	public List<RacksDto> findAll() {
 		List<Racks> list = racksService.findAll();
 		return  racksService.RacksListToDtoList(list);
 	}
 	
-	@GetMapping("/racks/{racksId}")
+	@GetMapping("/{racksId}")
 	public RacksDto getRacks(@PathVariable int racksId) {
 		
 		Racks theRacks = racksService.findById(racksId);
@@ -49,7 +49,7 @@ public class RacksRestController {
 	
 	// add mapping for POST /racks - add new racks
 	
-		@PostMapping("/racks")
+		@PostMapping("")
 		public RacksDto addRacks(@RequestBody RacksDto theRackDto) {
 			theRackDto.setId(0);
 			return racksService.save(theRackDto);
@@ -57,7 +57,7 @@ public class RacksRestController {
 		
 		// add mapping for PUT /racks  - update existing racks
 		
-		@PutMapping("/racks")
+		@PutMapping("")
 		public RacksDto updateRacks(@RequestBody RacksDto theRacksDto) {
 			
 			
@@ -68,7 +68,7 @@ public class RacksRestController {
 		
 		// add mapping for DELETE /racks/{racksId} - delete racks
 		
-		@DeleteMapping("/racks/{racksId}")
+		@DeleteMapping("/{racksId}")
 		public String deleteRacks(@PathVariable int racksId) {
 			
 			Racks tempRacks = racksService.findById(racksId);

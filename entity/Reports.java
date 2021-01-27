@@ -2,8 +2,6 @@ package springboot.askisi3.entity;
 
 import java.time.LocalDate;
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,7 +39,7 @@ public class Reports {
 	@Column(name="infos")
 	private String infos;
 	
-	@OneToMany(mappedBy = "report",orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "report", fetch=FetchType.LAZY)
 	private List<ImportsExports> importsExports;
 	
 	public Reports() {}
@@ -105,11 +103,12 @@ public class Reports {
 		this.infos = infos;
 	}
 	
-	public List<ImportsExports> getImports_exports() {
+	public List<ImportsExports> getImportsExports() {
+		
 		return importsExports;
 	}
 
-	public void setImports_exports(List<ImportsExports> importsExports) {
+	public void setImportsExports(List<ImportsExports> importsExports) {
 		this.importsExports = importsExports;
 	}
 

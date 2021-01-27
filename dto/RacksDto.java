@@ -24,11 +24,13 @@ public class RacksDto {
 		this.id=rack.getId();
 		this.description=rack.getDescription();
 		this.storeId=rack.getStore().getId();
-		List<ImportsExportsDto> importsExportsDto =new ArrayList<ImportsExportsDto>();
-		for(ImportsExports imex : rack.getImports_exports()) {
-			importsExportsDto.add(new ImportsExportsDto(imex));			
-		   }
-	    this.importsExports=importsExportsDto;
+		if(rack.getImportsExports()!=null) {
+			List<ImportsExportsDto> importsExportsDto =new ArrayList<ImportsExportsDto>();
+			for(ImportsExports imex : rack.getImportsExports()) {
+				importsExportsDto.add(new ImportsExportsDto(imex));			
+			}
+		    this.importsExports=importsExportsDto;
+	    }
 	}
 
 	public Integer getId() {

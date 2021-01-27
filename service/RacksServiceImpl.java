@@ -25,8 +25,8 @@ public class RacksServiceImpl implements RacksService{
 
 	@Override
 	public List<Racks> findAll() {
-		List<Racks> racks=racksRepository.findAll();	
-		return racks;}
+		return racksRepository.findAll();	
+     }
 
 	
 	@Override
@@ -50,8 +50,8 @@ public class RacksServiceImpl implements RacksService{
 	@Override
 	public RacksDto save(RacksDto theRacksDto) {
 		if( storeService.findById(theRacksDto.getStoreId())!=null){
-			racksRepository.save(dtoToEntity(theRacksDto));
-			return theRacksDto;}
+			return new RacksDto(racksRepository.save(dtoToEntity(theRacksDto)));}
+			
 		
 		else {
 			throw new RuntimeException("Did not found store with this id :"+ theRacksDto.getStoreId());
@@ -94,11 +94,11 @@ public class RacksServiceImpl implements RacksService{
 		
 		Racks rack = new Racks();
 		if(rackDto.getId()!=null)
-		rack.setId(rackDto.getId());
+			rack.setId(rackDto.getId());
 		if(rackDto.getDescription()!=null)
-		rack.setDescription(rackDto.getDescription());
-		if(storeService.findById(rackDto.getStoreId())!=null)
-		rack.setStore(storeService.findById(rackDto.getStoreId()));
+			rack.setDescription(rackDto.getDescription());
+		if(storeService.findById(rackDto.getStoreId())!=null) 
+			rack.setStore(storeService.findById(rackDto.getStoreId()));
 		
 		return rack;
 	}

@@ -18,7 +18,7 @@ import springboot.askisi3.entity.Reports;
 import springboot.askisi3.service.ReportsService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/reports")
 public class ReportsRestController {
 	private ReportsService reportsService;
 	
@@ -27,14 +27,14 @@ public class ReportsRestController {
 		reportsService = theReportsService;
 	}
 	
-	@GetMapping("/reports")
+	@GetMapping("")
 	public List<ReportsDto> findAll() {
 		return reportsService.ReportsListToDtoList(reportsService.findAll());
 	}
 
 	
 	
-	@GetMapping("/reports/{reportsId}")
+	@GetMapping("/{reportsId}")
 	public ReportsDto getReports(@PathVariable int reportsId) {		
 		Reports theReports = reportsService.findById(reportsId);
 		
@@ -47,21 +47,21 @@ public class ReportsRestController {
 	
 
 	
-		@PostMapping("/reports")
+		@PostMapping("")
 		public ReportsDto addReports(@RequestBody ReportsDto theReportsDto) {
 			theReportsDto.setId(0);
 			return reportsService.save(theReportsDto);}
 		
 	
 		
-		@PutMapping("/reports")
+		@PutMapping("")
 		public ReportsDto updateReports(@RequestBody ReportsDto theReports) {
 			
 			return reportsService.update(theReports);
 		}
 
 		
-		@DeleteMapping("/reports/{reportsId}")
+		@DeleteMapping("/{reportsId}")
 		public String deleteReports(@PathVariable int reportsId) {
 			Reports tempReports = reportsService.findById(reportsId);
 			

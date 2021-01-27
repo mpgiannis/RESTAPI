@@ -1,8 +1,6 @@
 package springboot.askisi3.entity;
 
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +33,7 @@ public class Product {
 	@Column(name="measure_unit")
 	private String measureUnit;
 	
-	@OneToMany(mappedBy = "product",orphanRemoval = true, cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy = "product",fetch=FetchType.LAZY)
 	private List<ImportsExports> importsExports;
 	
 		

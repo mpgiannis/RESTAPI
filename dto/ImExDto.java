@@ -17,6 +17,19 @@ public class ImExDto {
 	private String productName;
 	
 	private Integer amount;
+	
+
+	public ImExDto(Integer id, Integer repId, String repType, Integer storeId, Integer rackId, Integer productId,
+			String productName, Integer amount) {
+		this.id = id;
+		this.repId = repId;
+		this.repType = repType;
+		this.storeId = storeId;
+		this.rackId = rackId;
+		this.productId = productId;
+		this.productName = productName;
+		this.amount = amount;
+	}
 
 	public Integer getId() {
 		return id;

@@ -131,15 +131,15 @@ private RacksService racksService;
 		
 		ImportsExports imex = new ImportsExports();
 		if(importexportDto.getId()!=null)
-		imex.setId(importexportDto.getId());
+			imex.setId(importexportDto.getId());
 		if(reportsService.findById(importexportDto.getReportId())!=null)
-		imex.setReport(reportsService.findById(importexportDto.getReportId()));
+			imex.setReport(reportsService.findById(importexportDto.getReportId()));
 		if(productService.findById(importexportDto.getProductId())!=null)
-		imex.setProduct(productService.findById(importexportDto.getProductId()));
+			imex.setProduct(productService.findById(importexportDto.getProductId()));
 		if(racksService.findById(importexportDto.getRackId())!=null)
-		imex.setRack(racksService.findById(importexportDto.getRackId()));
+			imex.setRack(racksService.findById(importexportDto.getRackId()));
 		if(importexportDto.getAmount()!=null)
-		imex.setAmount(importexportDto.getAmount());
+			imex.setAmount(importexportDto.getAmount());
 		return imex;
 	}
 	

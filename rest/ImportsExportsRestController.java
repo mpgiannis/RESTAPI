@@ -18,7 +18,7 @@ import springboot.askisi3.entity.ImportsExports;
 import springboot.askisi3.service.ImportsExportsService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/imports_exports")
 public class ImportsExportsRestController {
 	
 	
@@ -29,21 +29,16 @@ public class ImportsExportsRestController {
 		importsExportsService = theImports_ExportsService;
 	}
 	
-	@GetMapping("/imports_exports")
+	@GetMapping("")
 	public List<ImportsExportsDto> findAll() {
 		List<ImportsExports> list = importsExportsService.findAll();
 		return importsExportsService.ImportsExportsListToDtoList(list);
 	}
 
-	@PostMapping("/imports_exports/search")
-	public List<ImExDto> searchImEx(@RequestBody  ImExSearch search){
-		
-		return importsExportsService.searchImEx(search);
-	}
+
 	
 	
-	
-	@GetMapping("/imports_exports/{imports_exportsId}")
+	@GetMapping("/{imports_exportsId}")
 	public ImportsExportsDto getImports_Exports(@PathVariable int imports_exportsId) {
 		
 		ImportsExports theImportsExports = importsExportsService.findById(imports_exportsId);
@@ -56,19 +51,19 @@ public class ImportsExportsRestController {
 	}
 
 	
-	@PostMapping("/imports_exports")
+	@PostMapping("")
 	public ImportsExportsDto addImports_Exports(@RequestBody ImportsExportsDto theImportsExportsDto) {
 		theImportsExportsDto.setId(0);
 		return importsExportsService.save(theImportsExportsDto);
 	}
 	
-	@PutMapping("/imports_exports")
+	@PutMapping("")
 	public ImportsExportsDto updateImports_Exports(@RequestBody ImportsExportsDto theImportsExportsDto) {
 		importsExportsService.save(theImportsExportsDto);
 		return theImportsExportsDto;
 	}
 	
-	@DeleteMapping("/imports_exports/{imports_exportsId}")
+	@DeleteMapping("/{imports_exportsId}")
 	public String deleteImports_Exports(@PathVariable int imports_exportsId) {	
 		ImportsExports tempImports_Exports = importsExportsService.findById(imports_exportsId);
 		if (tempImports_Exports == null) {

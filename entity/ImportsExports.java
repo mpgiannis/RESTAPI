@@ -17,22 +17,22 @@ import javax.persistence.Table;
 public class ImportsExports {
 	
 	
-	// define fields
+	// define fields cascade=CascadeType.ALL,
 	
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		@Column(name="id")
 		private Integer id;
 		
-		@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		@ManyToOne( fetch=FetchType.LAZY)
 		@JoinColumn(name="reports_id")
 		private Reports report;
 		
-        @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+        @ManyToOne( fetch=FetchType.LAZY)
 		@JoinColumn(name="product_id")
 		private Product product;
 		
-		@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+		@ManyToOne( fetch=FetchType.LAZY)
 		@JoinColumn(name="rack_id")
 		private Racks rack;
 		
@@ -46,7 +46,7 @@ public class ImportsExports {
 
 
 	public ImportsExports(Reports report, Product product, Racks rack, int amount) {
-		super();
+	
 		this.report = report;
 		this.product = product;
 		this.rack = rack;

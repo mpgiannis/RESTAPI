@@ -33,11 +33,13 @@ public class ReportsDto {
 		this.descriptionReason=reports.getDescriptionReason();
 		this.receivedDeliveredBy=reports.getReceivedDeliveredBy();
 		this.infos=reports.getInfos();
-		List<ImportsExportsDto> importsExportsDto =new ArrayList<ImportsExportsDto>();
-		for(ImportsExports imex : reports.getImports_exports()) {
-			importsExportsDto.add(new ImportsExportsDto(imex));			
-		   }
-		this.importsExports=importsExportsDto;
+		if(reports.getImportsExports()!=null) {
+			List<ImportsExportsDto> importsExportsDto =new ArrayList<ImportsExportsDto>();
+			for(ImportsExports imex : reports.getImportsExports()) {
+				importsExportsDto.add(new ImportsExportsDto(imex));			
+		    }
+			this.importsExports=importsExportsDto;
+		}
 		
 	}
 

@@ -10,7 +10,11 @@ public class ImportsExportsDto {
 	
 	Integer productId;
 	
+	String productName;
+	
 	Integer rackId;
+	
+	String rackDescription;
 	
 	Integer amount;
 	
@@ -21,8 +25,26 @@ public class ImportsExportsDto {
 		this.id =importexport.getId();
 		this.reportId = importexport.getReport().getId();
 		this.productId = importexport.getProduct().getId();
+		this.productName=importexport.getProduct().getName();
 		this.rackId =importexport.getRack().getId();
+		this.rackDescription=importexport.getRack().getDescription();
 		this.amount =importexport.getAmount();
+	}
+
+	public String getRackDescription() {
+		return rackDescription;
+	}
+
+	public void setRackDescription(String rackDescription) {
+		this.rackDescription = rackDescription;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
 	public Integer getId() {

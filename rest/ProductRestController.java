@@ -17,7 +17,7 @@ import springboot.askisi3.entity.Product;
 import springboot.askisi3.service.ProductService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/products")
 public class ProductRestController {
 
 	private ProductService productService;
@@ -27,14 +27,14 @@ public class ProductRestController {
 	}
 	
 	// expose "/products" and return list of products
-	@GetMapping("/products")
+	@GetMapping("")
 	public List<ProductDto> findAll() {
 		return productService.ProductListToDtoList(productService.findAll());
 	}
 
 	// add mapping for GET /products/{productId}
 	
-	@GetMapping("/products/{productId}")
+	@GetMapping("/{productId}")
 	public ProductDto getProduct(@PathVariable int productId) {
 		
 		Product theProduct = productService.findById(productId);
@@ -55,7 +55,7 @@ public class ProductRestController {
 	
 	// add mapping for POST /products - add new product
 	
-	@PostMapping("/products")
+	@PostMapping("")
 	public ProductDto addProduct(@RequestBody ProductDto theProductDto) {
 		
 		// also just in case they pass an id in JSON ... set id to 0
@@ -68,7 +68,7 @@ public class ProductRestController {
 	
 	// add mapping for PUT /products - update existing product
 	
-	@PutMapping("/products")
+	@PutMapping("")
 	public ProductDto updateProduct(@RequestBody ProductDto theProduct) {
 	
 		return productService.update(theProduct);
@@ -76,7 +76,7 @@ public class ProductRestController {
 	
 	// add mapping for DELETE /products/{productId} - delete product
 	
-	@DeleteMapping("/products/{productId}")
+	@DeleteMapping("/{productId}")
 	public String deleteProduct(@PathVariable int productId) {
 		
 		Product tempProduct = productService.findById(productId);
